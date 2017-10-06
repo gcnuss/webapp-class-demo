@@ -1,0 +1,48 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Your Baby is Growing!</title>
+  <meta name="description" content="Baby Size Estimate">
+  <meta name="author" content="Gina">
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+  <script>
+    submit = function(){
+	  week = $("#week").val()
+
+	  equation = {week : week}
+
+	  $.post({
+	    url: "/solve",
+		contentType: "application/json",
+		data: JSON.stringify(equation),
+		success: function(result){
+		  $(".hidden").css("display","inline").html("Your baby is about the " + result.measure + " of a/an " + result.food);
+		}
+	  });
+	}
+  </script>
+  <style>
+    .hidden {
+	  display: none;
+	}
+  </style>
+</head>
+
+<body id="page-top">
+
+    <h1>Your Baby is Growing!</h1>
+    <p>Even though it's weird, many people discuss baby's size in utero in terms of foods...</p>
+    <p>Find out your baby's estimated size in terms of food below</p>
+
+	<h3>Enter how many weeks along you are to find out your baby's estimated size!</h3>
+	<input type="text" placeholder="weeks pregnant" id="week">
+	<label for="week">weeks along</label>
+
+	<button onclick="submit();">Get Food!</button>
+
+	<p><span class="hidden"></span></p>
+
+</body>
+</html>
